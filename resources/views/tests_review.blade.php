@@ -31,7 +31,7 @@
                             <td class="alignment">{{ $test->questions_number }}</td>
                             <td class="alignment">{{ $test->public }}</td>
                             <td class="alignment">{{ $test->published }}</td>
-                            <td class="alignment"><button class="btn btn-danger" id="delete-"> Delete </button></td>
+                            <td class="alignment"><a href="{{ url("/tests/$test->id/questions/delete") }}" class="btn btn-danger" id="delete-"> Delete </a></td>
                         </tr>
                         </tbody>
                     @endforeach

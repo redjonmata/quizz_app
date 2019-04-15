@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
+use App\Question;
 use App\Test;
 use App\User;
 use Illuminate\Http\Request;
@@ -42,7 +44,7 @@ class TestController extends Controller
 
         $test->save();
 
-        return redirect(url('/tests/'.$request->input('questions_number').'/questions'));
+        return view('single_test')->with('test', $test);
     }
 
     public function reviewTests()
@@ -61,5 +63,45 @@ class TestController extends Controller
         }
 
         return view('single_test')->with('test', $test);
+    }
+
+    public function deleteTest($testId)
+    {
+        Test::destroy($testId);
+
+        return redirect(url('/review-tests'));
+    }
+
+    public function addQuestions(Request $request, $testId)
+    {
+        $test = Test::where('id', $testId)->first();
+
+        for($x = 1; $x<=$test->questions_number; $x++) {
+            $question = new Question;
+
+            $question->test_id = $testId;
+            $question->text = $request->input('question_'. $x);
+            $question->type = "type";
+            $question->answers_number = 1;
+
+            $update = $question->save();
+        }
+
+        if($update) {
+            for ($x = 1; $x <= $test->questions_number; $x++) {
+                for($y = 1; $y<=4; $y++) {
+                    $answer = new Answer;
+
+                    $answer->question_id = $question->id;
+                    $answer->text = $request->input('question_'.$x.'_answer_'.$y);
+                    $answer->is_correct = "false";
+
+                    $answer->save();
+                }
+            }
+        }
+
+
+        return redirect(url('/'));
     }
 }
