@@ -11,6 +11,7 @@
 <div class="container" id="home-container">
     <div class="row justify-content-center align-items-center pt-4">
         <form method="post" action="/tests/{{ $test->id }}/questions" enctype="multipart/form-data">
+            {{ csrf_field() }}
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12 question-header">
                     <h2 class="text-center">Add questions</h2>
@@ -22,7 +23,7 @@
                 @for($x = 1; $x<=6; $x++)
                     <div class="col-md-6 col-xs-12 col-lg-6 ">
                         <label for="name"> Answer number {{ $x }} </label><br/>
-                        <input style="margin-bottom: 10px" type="text" class="form-control" name="question_{{ $x }}" placeholder=" Question {{ $x }}">
+                        <input style="margin-bottom: 10px" type="text" class="form-control" name="answer_{{ $x }}" placeholder=" Question {{ $x }}">
                         <label for="correct"> Correct </label>
                         <input type="checkbox" name="correct_{{ $x }}" placeholder=" Question ">
                     </div>

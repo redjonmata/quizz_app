@@ -44,7 +44,7 @@ class TestController extends Controller
 
         $test->save();
 
-        return view('single_test')->with('test', $test);
+        return redirect(url('/tests/'.$test->id.'/questions'));
     }
 
     public function reviewTests()
@@ -85,16 +85,25 @@ class TestController extends Controller
 
         $update = $question->save();
 
+        $questionId = $question->id;
+
         if ($update) {
             for ($x = 1; $x <= 6; $x++) {
                 $answer = new Answer;
 
-                $answer->question->id = $question->id;
-                $answer->text
+                $answer->question_id = $questionId;
+                $answer->text = $request->input('answer_' . $x);
+
+                if($request->input('correct_' . $x) == 'on') {
+                    $answer->is_correct = "yes";
+                } else {
+                    $answer->is_correct = "no";
+                }
+
+                $answer->save();
              }
         }
 
-
-        return redirect(url('/'));
+        return redirect(url('/tests/'. $test->id.'/questions'));
     }
 }
