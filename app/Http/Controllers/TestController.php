@@ -76,29 +76,22 @@ class TestController extends Controller
     {
         $test = Test::where('id', $testId)->first();
 
-        for($x = 1; $x<=$test->questions_number; $x++) {
-            $question = new Question;
+        $question = new Question;
 
-            $question->test_id = $testId;
-            $question->text = $request->input('question_'. $x);
-            $question->type = "type";
-            $question->answers_number = 1;
+        $question->test_id = $testId;
+        $question->text = $request->input('question');
+        $question->type = "type";
+        $question->answers_number = 1;
 
-            $update = $question->save();
-        }
+        $update = $question->save();
 
-        if($update) {
-            for ($x = 1; $x <= $test->questions_number; $x++) {
-                for($y = 1; $y<=4; $y++) {
-                    $answer = new Answer;
+        if ($update) {
+            for ($x = 1; $x <= 6; $x++) {
+                $answer = new Answer;
 
-                    $answer->question_id = $question->id;
-                    $answer->text = $request->input('question_'.$x.'_answer_'.$y);
-                    $answer->is_correct = "false";
-
-                    $answer->save();
-                }
-            }
+                $answer->question->id = $question->id;
+                $answer->text
+             }
         }
 
 
