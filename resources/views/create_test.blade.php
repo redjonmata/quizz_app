@@ -9,39 +9,39 @@
                 {{ csrf_field() }}
                 <h4 class="form-heading text-center">Create new test for your quizz!</h4>
 
-                <div class="field">
-                    <label for="name"> Enter a name for your test </label><br/>
+                <div class="field field-create">
+                    <label class="label-input" for="name"> Enter a name for your test </label><br/>
                     <input type="text" class="form-control" id="name" name="name" placeholder=" Name" required>
                 </div>
 
-                <div class="field">
-                    <label for="description"> Enter a description for your test </label><br/>
+                <div class="field field-create">
+                    <label class="label-input" for="description"> Enter a description for your test </label><br/>
                     <textarea type="text" class="form-control" id="description" name="description" placeholder="Description" required></textarea>
                 </div>
 
-                <div class="field">
-                    <label for="questions_number"> Enter how many questions you want in your test </label><br/>
+                <div class="field field-create">
+                    <label class="label-input" for="questions_number"> Enter how many questions you want in your test </label><br/>
                     <input type="number" class="form-control" id="questions_number" name="questions_number" placeholder=" Number" required>
                 </div>
 
-                <div class="field">
-                    <p> Test will be published or not?  </p><br/>
-                    <input type="radio" id="published" name="published"/>
-                    <label for="published">Published</label>
-                    <input type="radio" id="not_published" name="not_published"/>
-                    <label for="not_published">Not published</label>
+                <div class="field field-create">
+                    <p class="label-input"> Test will be published or not?  </p><br/>
+
+                    <label for="published">Published <input type="radio" id="published" name="published"/></label>
+
+                    <label for="not_published">Not published <input type="radio" id="not_published" name="not_published"/></label>
                 </div>
 
-                <div class="field">
-                    <p> Test will be public or not?  </p><br/>
-                    <input type="radio" id="public" name="public"/>
-                    <label for="public">Public</label>
-                    <input type="radio" id="not_public" name="not_public"/>
-                    <label for="not_public">Not public</label>
+                <div class="field field-create">
+                    <p class="label-input"> Test will be public or not?  </p><br/>
+
+                    <label for="public">Public <input type="radio" id="public" name="public"/></label>
+
+                    <label for="not_public">Not public <input type="radio" id="not_public" name="not_public"/></label>
                 </div>
 
-                <div class="field">
-                    <label for="timer"> How much is your test going to last? </label><br/>
+                <div class="field field-create">
+                    <label class="label-input" for="timer"> How much is your test going to last? </label><br/>
                     <input type="number" class="form-control" id="timer" name="timer" placeholder=" Minutes" required>
                 </div>
 

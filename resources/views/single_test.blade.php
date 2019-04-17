@@ -40,23 +40,24 @@
                     <h2 class="text-center">Add questions</h2>
                 </div>
                 <div class="col-12 col-md-8 col-lg-8 input-question-header">
-                    <label for="name"> Enter your question. </label><br/>
+                    <label class="label-input" for="name"> Enter your question. </label><br/>
                     <input style="margin-bottom: 10px" type="text" class="form-control" name="question" placeholder=" Question ">
                 </div>
                 <div class="col-12 col-md-2 col-lg-2 input-question-header">
-                    <label for="name"> Question type </label><br/>
+                    <label class="label-input" for="name"> Question type </label><br/>
                     <input style="margin-bottom: 10px" type="text" class="form-control" name="type" placeholder=" Type ">
                 </div>
                 <div class="col-12 col-md-2 col-lg-2 input-question-header">
-                    <label for="name"> Answers number </label><br/>
+                    <label class="label-input" for="name"> Answers number </label><br/>
                     <input style="margin-bottom: 10px" type="number" class="form-control" name="number" placeholder=" Number ">
                 </div>
                 @for($x = 1; $x<=6; $x++)
                     <div class="col-md-6 col-xs-12 col-lg-6 ">
-                        <label for="name"> Answer number {{ $x }} </label><br/>
+                        <label class="label-input" for="name"> Answer number {{ $x }} </label><br/>
                         <input style="margin-bottom: 10px" type="text" class="form-control" name="answer_{{ $x }}" placeholder=" Question {{ $x }}">
-                        <label for="correct"> Correct </label>
-                        <input type="checkbox" name="correct_{{ $x }}" placeholder=" Question ">
+                        <label for="correct"> Correct
+                            <input type="checkbox" name="correct_{{ $x }}" placeholder=" Question ">
+                        </label>
                     </div>
                 @endfor
                 <div class="col-lg-12 text-center add-question">
