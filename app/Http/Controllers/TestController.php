@@ -58,11 +58,13 @@ class TestController extends Controller
     {
         $test = Test::where('id', $testId)->first();
 
+        $questions = Question::where('test_id', '=', $testId)->get();
+
         if (!$test) {
             return back();
         }
 
-        return view('single_test')->with('test', $test);
+        return view('single_test')->with(compact('test', 'questions'));
     }
 
     public function deleteTest($testId)
@@ -80,27 +82,27 @@ class TestController extends Controller
 
         $question->test_id = $testId;
         $question->text = $request->input('question');
-        $question->type = "type";
-        $question->answers_number = 1;
+        $question->type = $request->input('type');
+        $question->answers_number = $request->input('number');
 
         $update = $question->save();
 
-        $questionId = $question->id;
-
         if ($update) {
             for ($x = 1; $x <= 6; $x++) {
-                $answer = new Answer;
+                if($request->input('answer_' . $x) != '') {
+                    $answer = new Answer;
 
-                $answer->question_id = $questionId;
-                $answer->text = $request->input('answer_' . $x);
+                    $answer->question_id = $question->id;
+                    $answer->text = $request->input('answer_' . $x);
 
-                if($request->input('correct_' . $x) == 'on') {
-                    $answer->is_correct = "yes";
-                } else {
-                    $answer->is_correct = "no";
+                    if ($request->input('correct_' . $x) == 'on') {
+                        $answer->is_correct = "yes";
+                    } else {
+                        $answer->is_correct = "no";
+                    }
+
+                    $answer->save();
                 }
-
-                $answer->save();
              }
         }
 

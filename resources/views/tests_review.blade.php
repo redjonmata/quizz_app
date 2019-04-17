@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Review tests </title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/design/theme/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+@extends('layouts.app')
+@section('title', 'Review Tests')
 
-</head>
-<body>
+@section('content')
 <div class="container" id="home-container">
     <div class="row justify-content-center align-items-center pt-4">
         <div class="col-12 col-md-10 col-lg-10 ">
@@ -43,5 +38,5 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+
+@endsection

@@ -1,24 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Review tests </title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/main.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@extends('layouts.app')
+@section('title', 'Test number ' . $test->id)
 
-</head>
-<body>
+@section('content')
 <div class="container" id="home-container">
     <div class="row justify-content-center align-items-center pt-4">
+
+        <div class="col-12 col-md-10 col-lg-10 ">
+            <h4 class="form-heading text-center">Click the test you want to review it.</h4>
+            <div class="example table-responsive">
+                <table class="table">
+                    <thead class="thead-success">
+                    <tr>
+                        <th>Id</th>
+                        <th>Question</th>
+                        <th>Type</th>
+                        <th>Answers Number</th>
+                        <th>Created</th>
+                    </tr>
+                    </thead>
+                    @foreach($questions as $question)
+                        <tbody>
+                        <tr>
+                            <td class="alignment">{{ $question->id }}</td>
+                            <td class="alignment">{{ $question->text }}</td>
+                            <td class="alignment">{{ $question->type }}</td>
+                            <td class="alignment">{{ $question->answers_number }}</td>
+                            <td class="alignment">{{ $question->created_at }}</td>
+                        </tr>
+                        </tbody>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+
         <form method="post" action="/tests/{{ $test->id }}/questions" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12 question-header">
                     <h2 class="text-center">Add questions</h2>
                 </div>
-                <div class="col-12 col-md-12 col-lg-12 input-question-header">
+                <div class="col-12 col-md-8 col-lg-8 input-question-header">
                     <label for="name"> Enter your question. </label><br/>
                     <input style="margin-bottom: 10px" type="text" class="form-control" name="question" placeholder=" Question ">
+                </div>
+                <div class="col-12 col-md-2 col-lg-2 input-question-header">
+                    <label for="name"> Question type </label><br/>
+                    <input style="margin-bottom: 10px" type="text" class="form-control" name="type" placeholder=" Type ">
+                </div>
+                <div class="col-12 col-md-2 col-lg-2 input-question-header">
+                    <label for="name"> Answers number </label><br/>
+                    <input style="margin-bottom: 10px" type="number" class="form-control" name="number" placeholder=" Number ">
                 </div>
                 @for($x = 1; $x<=6; $x++)
                     <div class="col-md-6 col-xs-12 col-lg-6 ">
@@ -55,7 +86,9 @@
         {{--</div>--}}
     </div>
 </div>
-</body>
+@endsection
+{{--</body>--}}
+
 
 <script>
     // var questions_number = document.getElementById('number').value;
@@ -72,5 +105,3 @@
 
 
 </script>
-
-</html>

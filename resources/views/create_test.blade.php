@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Test</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/design/theme/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+@extends('layouts.app')
+@section('title', 'Create Tests')
 
-</head>
-<body>
+@section('content')
 <div class="container" id="home-container">
     <div class="row justify-content-center align-items-center pt-4">
         <div class="col-12 col-md-10 col-lg-8 ">
@@ -51,11 +46,10 @@
                 </div>
 
                 <div class="col-xs-12">
-                    <button type="submit" class="view-vehicle-btn" id="email-submit-btn">Review test</button>
+                    <button type="submit" class="btn btn-primary" id="email-submit-btn">Review test</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-</body>
-</html>
+@endsection
