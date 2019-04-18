@@ -108,4 +108,20 @@ class TestController extends Controller
 
         return redirect(url('/tests/'. $test->id.'/questions'));
     }
+
+    public function makeTestPublic($testId)
+    {
+        Test::where('id', $testId)
+            ->update(['public' => 'yes']);
+
+        return redirect(url('/review-tests'));
+    }
+
+    public function publishTest($testId)
+    {
+        Test::where('id', $testId)
+            ->update(['published' => 'yes']);
+
+        return redirect(url('/review-tests'));
+    }
 }

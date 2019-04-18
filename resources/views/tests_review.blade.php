@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Review Tests')
+@section('title', 'Draft')
 
 @section('content')
 <div class="container" id="home-container">
@@ -24,8 +24,17 @@
                             <td class="alignment">{{ $test->id }}</td>
                             <td class="alignment"><a href="{{ url("/tests/$test->id/questions") }}">{{ $test->name }}</a></td>
                             <td class="alignment">{{ $test->questions_number }}</td>
-                            <td class="alignment">{{ $test->public }}</td>
-                            <td class="alignment">{{ $test->published }}</td>
+                            @if($test->public == "no")
+                                <td class="alignment"><a href="{{ url("/tests/$test->id/public") }}" class="btn btn-success">Make public</a></td>
+                            @else
+                                <td class="alignment">{{ $test->public }}</td>
+                            @endif
+
+                            @if($test->published == "no")
+                                <td class="alignment"><a href="{{ url("/tests/$test->id/published") }}" class="btn btn-success">Publish</a></td>
+                            @else
+                                <td class="alignment">{{ $test->published }}</td>
+                            @endif
                             <td class="alignment"><a href="{{ url("/tests/$test->id/questions/delete") }}" class="btn btn-danger" id="delete-"> Delete </a></td>
                         </tr>
                         </tbody>
