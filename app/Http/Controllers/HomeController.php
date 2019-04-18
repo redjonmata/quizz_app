@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         $tests = Test::with('questions')->where('public', 'yes')->where('published', 'yes')->get();
 
-        return view('home')->with('tests', $tests);
+        return view('home')->with(compact('tests'));
     }
 
     public function takeTest($testId)

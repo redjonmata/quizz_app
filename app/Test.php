@@ -15,4 +15,9 @@ class Test extends Model
     {
         return $this->hasMany('App\Answer');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'user_test', 'test_id', 'user_id');
+    }
 }
