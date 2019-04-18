@@ -36,7 +36,7 @@ class TestController extends Controller
             $test->published = "no";
         }
 
-        if($request->input('public') == '2') {
+        if($request->input('public') == '1') {
             $test->public = "yes";
         } else {
             $test->public = "no";
@@ -110,7 +110,7 @@ class TestController extends Controller
         } else {
             $question->type = "multiple";
         }
-        dump($info);
+
         $question->answers_number = count($answers);
 
         $update = $question->save();

@@ -27,9 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $taken = DB::table('user_test')->where('user_id', Auth::id())->get();
         $tests = Test::with('questions')->where('public', 'yes')->where('published', 'yes')->get();
 
-        return view('home')->with(compact('tests'));
+        return view('home')->with(compact('tests', 'taken'));
     }
 
     public function takeTest($testId)
