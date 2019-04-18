@@ -42,34 +42,33 @@ class HomeController extends Controller
 
     public function submitTest(Request $request, $testId)
     {
-        $questions = Question::with('answers')->where('test_id', $testId)->get();
+        $questions = Question::with('answers')->where('test_id', $testId)->get()->toArray();
+        $answers = $request->get('answers');
         $result = 0;
 
-        foreach ($questions as $question) {
-            if($question->type == 'Single' || $question->type == 'Multiple') {
-                foreach ($question->answers as $answer) {
-                    if ($request->input($answer->text) == 'on' && $answer->is_correct == 'yes') {
-                        $result++;
-                    }
+        foreach ($questions as $key => $question) {
+            $correct = array_filter(
+                $question['answers'],
+                function ($ans) {
+                    return $ans['is_correct'] == 'yes';
                 }
-            } else if($question->type == 'Multiple') {
-                foreach ($question->answers as $answer) {
-                    if ($request->input($answer->text) == 'on' && $answer->is_correct == 'yes') {
+            );
+            if ($question['type'] == 'single') {
+                if ($answers[$key][0] == $correct[0]['text']) {
+                    $result++;
+                }
+            } elseif ($question['type'] == 'multiple') {
+                if (count($answers[$key]) === count($correct)) {
+                    if (array_diff(array_column($correct, 'text'), $answers[$key]) == []) {
                         $result++;
-                        break;
                     }
                 }
             } else {
-                foreach ($question->answers as $answer) {
-                    for ($x = 1; $x <= $request->input('explination_number'); $x++) {
-                        if ($request->input('answer_' . $x) == $answer->text) {
-                            $result++;
-                        }
-                    }
+                if ($answers[$key][0] == $correct[0]['text']) {
+                    $result++;
                 }
             }
         }
-
         DB::table('user_test')->insert([
             'user_id' => Auth::id(),
             'result' => $result,

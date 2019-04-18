@@ -36,27 +36,31 @@
         <form method="post" action="/tests/{{ $test->id }}/questions" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="row">
-                <div class="col-12 col-md-12 col-lg-12 question-header">
+                <div class="col-12 question-header">
                     <h2 class="text-center">Add questions</h2>
                 </div>
-                <div class="col-12 col-md-8 col-lg-8 input-question-header">
-                    <label class="label-input" for="name"> Enter your question. </label><br/>
-                    <input style="margin-bottom: 10px" type="text" class="form-control" name="question" placeholder=" Question " required>
+                <div class="col-12 input-question-header">
+                    <label class="label-input" for="question"> Enter your question. </label><br/>
+                    <input style="margin-bottom: 10px" type="text" id="question" class="form-control" name="question" placeholder=" Question " required>
                 </div>
-                <div class="col-12 col-md-2 col-lg-2 input-question-header">
-                    <label class="label-input" for="name"> Question type </label><br/>
-                    <input style="margin-bottom: 10px" type="text" class="form-control" name="type" placeholder=" Type " required>
-                </div>
-                <div class="col-12 col-md-2 col-lg-2 input-question-header">
-                    <label class="label-input" for="name"> Answers number </label><br/>
-                    <input style="margin-bottom: 10px" type="number" class="form-control" name="number" placeholder=" Number " required>
-                </div>
+                {{--<div class="col-12 col-md-4 col-lg-4 input-question-header">--}}
+                    {{--<label class="label-input" for="type">Question type</label><br/>--}}
+                    {{--<select id="type" class="form-control">--}}
+                        {{--<option value="single">Single</option>--}}
+                        {{--<option value="multiple">Multiple</option>--}}
+                        {{--<option value="explanation">Explanation</option>--}}
+                    {{--</select>--}}
+                {{--</div>--}}
+                {{--<div class="col-12 col-md-2 col-lg-2 input-question-header">--}}
+                    {{--<label class="label-input" for="number">Answers number</label><br/>--}}
+                    {{--<input style="margin-bottom: 10px" id="number"  type="number" class="form-control" name="number" placeholder=" Number " required>--}}
+                {{--</div>--}}
                 @for($x = 1; $x<=6; $x++)
                     <div class="col-md-6 col-xs-12 col-lg-6 ">
                         <label class="label-input" for="name"> Answer number {{ $x }} </label><br/>
-                        <input style="margin-bottom: 10px" type="text" class="form-control" name="answer_{{ $x }}" placeholder=" Question {{ $x }}">
+                        <input style="margin-bottom: 10px" type="text" class="form-control" name="answer[{{$x}}][text]" placeholder=" Question {{ $x }}">
                         <label for="correct"> Correct
-                            <input type="checkbox" name="correct_{{ $x }}" placeholder=" Question ">
+                            <input type="checkbox" name="answer[{{$x}}][correct]" placeholder=" Question ">
                         </label>
                     </div>
                 @endfor

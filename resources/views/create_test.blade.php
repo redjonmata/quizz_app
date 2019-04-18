@@ -7,7 +7,7 @@
         <div class="col-12 col-md-10 col-lg-8 ">
             <form method="post" action="/create-test" name="Form" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <h4 class="form-heading text-center">Create new test for your quizz!</h4>
+                <h4 class="form-heading text-center">Create new test for your quiz!</h4>
 
                 <div class="field field-create">
                     <label class="label-input" for="name"> Enter a name for your test </label><br/>
@@ -27,17 +27,17 @@
                 <div class="field field-create">
                     <p class="label-input"> Test will be published or not?  </p><br/>
 
-                    <label for="published">Published <input type="radio" id="published" name="published"/></label>
+                    <label for="published">Published <input type="radio" value="1" id="published" name="published"/></label>
 
-                    <label for="not_published">Not published <input type="radio" id="not_published" name="not_published"/></label>
+                    <label for="not_published">Not published <input value="2" type="radio" id="not_published" name="published"/></label>
                 </div>
 
                 <div class="field field-create">
                     <p class="label-input"> Test will be public or not?  </p><br/>
 
-                    <label for="public">Public <input type="radio" id="public" name="public"/></label>
+                    <label for="public">Public <input type="radio" value="1" id="public" name="public"/></label>
 
-                    <label for="not_public">Not public <input type="radio" id="not_public" name="not_public"/></label>
+                    <label for="not_public">Not public <input type="radio" value="2" id="not_public" name="public"/></label>
                 </div>
 
                 <div class="field field-create">

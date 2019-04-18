@@ -30,13 +30,13 @@ class TestController extends Controller
         $test->questions_number = $request->input('questions_number');
         $test->timer = $request->input('timer');
 
-        if($request->input('published') == 'on') {
+        if($request->input('published') == '1') {
             $test->published = "yes";
         } else {
             $test->published = "no";
         }
 
-        if($request->input('public') == 'on') {
+        if($request->input('public') == '2') {
             $test->public = "yes";
         } else {
             $test->public = "no";
@@ -82,28 +82,48 @@ class TestController extends Controller
 
         $question->test_id = $testId;
         $question->text = $request->input('question');
-        $question->type = $request->input('type');
-        $question->answers_number = $request->input('number');
+
+        $answers = array_filter(
+            $request->get('answer'),
+            function ($value) {
+                return (bool) $value['text'];
+            }
+        );
+
+        $info = array_reduce(
+            $answers,
+            function ($current, $value) {
+                return [
+                    'answers' => $current['answers'] + ($value['text'] ? 1 : 0),
+                    'correct' => $current['correct'] + (isset($value['correct']) ? 1 : 0),
+                ];
+            }, [
+                'answers' => 0,
+                'correct' => 0,
+            ]
+        );
+
+        if ($info['answers'] == 1) {
+            $question->type = "explanation";
+        } elseif ($info['answers'] > 1 && $info['correct'] == 1) {
+            $question->type = "single";
+        } else {
+            $question->type = "multiple";
+        }
+        dump($info);
+        $question->answers_number = count($answers);
 
         $update = $question->save();
 
         if ($update) {
-            for ($x = 1; $x <= 6; $x++) {
-                if($request->input('answer_' . $x) != '') {
-                    $answer = new Answer;
+            foreach ($answers as $requestAnswer) {
+                $answer = new Answer;
+                $answer->question_id = $question->id;
+                $answer->text = $requestAnswer['text'];
+                $answer->is_correct = (isset($requestAnswer['correct'])) ? "yes" : "no";
 
-                    $answer->question_id = $question->id;
-                    $answer->text = $request->input('answer_' . $x);
-
-                    if ($request->input('correct_' . $x) == 'on') {
-                        $answer->is_correct = "yes";
-                    } else {
-                        $answer->is_correct = "no";
-                    }
-
-                    $answer->save();
-                }
-             }
+                $answer->save();
+            }
         }
 
         return redirect(url('/tests/'. $test->id.'/questions'));

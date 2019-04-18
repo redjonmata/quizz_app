@@ -10,27 +10,47 @@
             <form method="post" action="/tests/{{ $test->id }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <ul>
-                    <?php $explination = 1; ?>
-                    @foreach($questions as $question)
+                    @foreach($questions as $idx => $question)
                         <div class="col-lg-12 text-center add-question">
                             <li>
                                 <h5 class="form-heading text-left"> {{ $question->text }}</h5>
-                                @if($question->type == "Single")
-                                    @foreach($question->answers as $answer)
-                                        <label for="{{$answer->text}}">{{ $answer->text }} <input type="radio" id="published" name="{{$answer->text}}"/></label>
-                                    @endforeach
-                                @elseif($question->type == "Multiple")
-                                    @foreach($question->answers as $a_index => $answer)
-                                        <label for="{{$answer->text}}">{{ $answer->text }} <input type="checkbox" id="published" name="{{$answer->text}}"/></label>
-                                    @endforeach
-                                @else
-                                    <?php $explination++ ?>
-                                    <input class="form-control" name="answer_{{$explination}}" type="text" placeholder="Answer"/>
-                                @endif
+                                @foreach($question->answers as $index => $answer)
+                                    <div class="text-left">
+                                        @if($question->type == "single")
+                                            <label for="answer_{{$idx}}_{{$index}}">
+                                                <input
+                                                    type="radio"
+                                                    value="{{$answer->text}}"
+                                                    id="answer_{{$idx}}_{{$index}}"
+                                                    name="answers[{{$idx}}][0]"
+                                                />
+                                                <span>{{ $answer->text }}</span>
+                                            </label>
+                                        @elseif($question->type == "multiple")
+                                            <label for="answer_{{$idx}}_{{$index}}">
+                                                <input
+                                                    value="{{$answer->text}}"
+                                                    type="checkbox"
+                                                    id="answer_{{$idx}}_{{$index}}"
+                                                    name="answers[{{$idx}}][{{$index}}]"
+                                                />
+                                                <span>{{ $answer->text }}</span>
+                                            </label>
+                                        @else
+                                            <input
+                                                id="answer_{{$idx}}_{{$index}}"
+                                                class="form-control"
+                                                name="answers[{{$idx}}][{{$index}}]"
+                                                type="text"
+                                                placeholder="Answer"
+                                            />
+                                        @endif
+                                    </div>
+                                @endforeach
                             </li>
                         </div>
                     @endforeach
-                    <input type="hidden" name="explination_number" value="{{$explination}}">
+                    {{--<input type="hidden" name="explination_number" value="{{$explination}}">--}}
                 </ul>
                 <div class="col-lg-12 text-center add-question">
                     <button type="submit" id="submit" class="btn btn-success">Submit test</button>
