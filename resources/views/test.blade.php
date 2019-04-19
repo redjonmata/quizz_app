@@ -9,7 +9,7 @@
 
             <div class="col-12 text-center">
                 <input type="hidden" value="{{$test->timer}}" id="test_time">
-                <h5 id="time">Registration closes in {{ $test->timer }}:00 minutes!</h5>
+                <h5 id="time">Time remaining: {{ $test->timer }}:00 minutes!</h5>
             </div>
 
             <h3 class="form-he1ading text-center"> {{ $test->description }}</h3>
