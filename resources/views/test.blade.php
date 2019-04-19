@@ -7,9 +7,9 @@
     <div class="row justify-content-center align-items-center pt-4">
         <div class="col-12 col-md-10 col-lg-10 ">
 
-            <div class="col-md-10 text-right">
+            <div class="col-12 text-center">
                 <input type="hidden" value="{{$test->timer}}" id="test_time">
-                <h5>Registration closes in <span id="time">0{{$test->timer}}:00</span> minutes!</h5>
+                <h5 id="time">Registration closes in {{ $test->timer }}:00 minutes!</h5>
             </div>
 
             <h3 class="form-he1ading text-center"> {{ $test->description }}</h3>
@@ -59,6 +59,7 @@
                 </ul>
                 <div class="col-lg-12 text-center add-question">
                     <button type="submit" id="submit" class="btn btn-success">Submit test</button>
+                    <a href id="reset" class="btn btn-primary d-none text-white">Retry</a>
                 </div>
             </form>
         </div>
@@ -70,26 +71,29 @@
 <script>
     function startTimer(duration, display) {
         var timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10)
+        const interval = setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
             seconds = parseInt(timer % 60, 10);
 
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
+            display.textContent = 'Registration closes in ' + minutes + ":" + seconds + ' minutes!';
 
             if (--timer < 0) {
-                timer = duration;
+                clearInterval(interval);
+                display.textContent = "Time is up!";
+                const btn = document.querySelector('#submit');
+                const resetBtn = document.querySelector('#reset');
+                btn.classList.add('disabled');
+                btn.disabled = true;
+                resetBtn.classList.remove('d-none');
             }
         }, 1000);
     }
 
     window.onload = function () {
         var test_time = document.getElementById('test_time').value;
-        var minutes = 60 * test_time,
+        var seconds = 60 * test_time - 1,
             display = document.querySelector('#time');
-            startTimer(minutes, display);
+            startTimer(seconds, display);
     };
 
 </script>
