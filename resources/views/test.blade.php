@@ -75,7 +75,7 @@
             minutes = parseInt(timer / 60, 10);
             seconds = parseInt(timer % 60, 10);
 
-            display.textContent = 'Registration closes in ' + minutes + ":" + seconds + ' minutes!';
+            display.textContent = 'Time remaining: ' + minutes + ":" + seconds + ' minutes!';
 
             if (--timer < 0) {
                 clearInterval(interval);
