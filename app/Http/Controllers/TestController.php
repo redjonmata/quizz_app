@@ -27,7 +27,7 @@ class TestController extends Controller
 
         $test->name = $request->input('name');
         $test->description = $request->input('description');
-        $test->questions_number = $request->input('questions_number');
+        $test->questions_number = 0;
         $test->timer = $request->input('timer');
 
         if($request->input('published') == '1') {
@@ -116,6 +116,8 @@ class TestController extends Controller
         $update = $question->save();
 
         if ($update) {
+            $test->questions_number++;
+            $test->save();
             foreach ($answers as $requestAnswer) {
                 $answer = new Answer;
                 $answer->question_id = $question->id;

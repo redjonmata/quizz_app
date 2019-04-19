@@ -20,11 +20,6 @@
                 </div>
 
                 <div class="field field-create">
-                    <label class="label-input" for="questions_number"> Enter how many questions you want in your test </label><br/>
-                    <input type="number" class="form-control" id="questions_number" name="questions_number" placeholder=" Number" required>
-                </div>
-
-                <div class="field field-create">
                     <p class="label-input"> Test will be published or not?  </p><br/>
 
                     <label for="published">Published <input type="radio" value="1" id="published" name="published"/></label>

@@ -37,8 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function userTest()
+    public function userTests()
     {
-        return $this->belongsToMany('App\Test', 'user_test', 'user_id', 'test_id');
+        return $this->belongsToMany('App\Test', 'user_tests', 'user_id', 'test_id');
     }
 }

@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $taken = DB::table('user_test')->where('user_id', Auth::id())->get();
+        $taken = DB::table('user_tests')->where('user_id', Auth::id())->get();
         $tests = Test::with('questions')->where('public', 'yes')->where('published', 'yes')->get();
 
         return view('home')->with(compact('tests', 'taken'));
@@ -55,7 +55,8 @@ class HomeController extends Controller
                 }
             );
             if ($question['type'] == 'single') {
-                if ($answers[$key][0] == $correct[0]['text']) {
+                $correct2 = array_values($correct);
+                if ($answers[$key][0] == $correct2[0]['text']) {
                     $result++;
                 }
             } elseif ($question['type'] == 'multiple') {
@@ -70,11 +71,12 @@ class HomeController extends Controller
                 }
             }
         }
-        DB::table('user_test')->insert([
+        DB::table('user_tests')->insert([
             'user_id' => Auth::id(),
             'result' => $result,
             'test_id' => $testId
         ]);
 
+        return redirect(url('/'));
     }
 }

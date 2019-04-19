@@ -18,6 +18,6 @@ class Test extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User', 'user_test', 'test_id', 'user_id');
+        return $this->belongsToMany('App\User', 'user_tests', 'test_id', 'user_id');
     }
 }

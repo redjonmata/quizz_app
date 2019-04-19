@@ -6,7 +6,13 @@
 <div class="container" id="home-container">
     <div class="row justify-content-center align-items-center pt-4">
         <div class="col-12 col-md-10 col-lg-10 ">
-            <h3 class="form-heading text-center"> {{ $test->description }}</h3>
+
+            <div class="col-md-10 text-right">
+                <input type="hidden" value="{{$test->timer}}" id="test_time">
+                <h5>Registration closes in <span id="time">0{{$test->timer}}:00</span> minutes!</h5>
+            </div>
+
+            <h3 class="form-he1ading text-center"> {{ $test->description }}</h3>
             <form method="post" action="/tests/{{ $test->id }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <ul>
@@ -50,7 +56,6 @@
                             </li>
                         </div>
                     @endforeach
-                    {{--<input type="hidden" name="explination_number" value="{{$explination}}">--}}
                 </ul>
                 <div class="col-lg-12 text-center add-question">
                     <button type="submit" id="submit" class="btn btn-success">Submit test</button>
@@ -60,3 +65,31 @@
     </div>
 </div>
 @endsection
+
+
+<script>
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        var test_time = document.getElementById('test_time').value;
+        var minutes = 60 * test_time,
+            display = document.querySelector('#time');
+            startTimer(minutes, display);
+    };
+
+</script>
