@@ -41,8 +41,17 @@ class HomeController extends Controller
 
     public function takeTest($testId)
     {
+        $userTest = DB::table('user_tests')
+                        ->where('user_id', auth()->user()->id)
+                        ->where('test_id', $testId)
+                        ->first();
+
+        if (!empty($userTest)) {
+            return redirect(url('/'))->with('error', 'You have already completed this test!');
+        }
+
         $test = Test::where('id', $testId)->first();
-        $questions = Question::with('answers')->where('test_id', $testId)->get();
+        $questions = $test->questions;
 
         return view('test')->with(compact('test', 'questions'));
     }
